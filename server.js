@@ -13,7 +13,7 @@ app.use(function(req, res, next){
 
   next();
 });
-var port= 8080;
+var port= 3000;
 var service = new AssistantV2({
   iam_apikey: '3rmJmrRIzCopV4eE0hvGcaMGjHLatuk9CJ-Pnfnq99LT', // replace with API key
   version: '2018-09-20'
@@ -25,20 +25,27 @@ var sessionId;
 app.listen(port);
 app.post('/conversation/', function(req, res){
   // Create session.
-  service.createSession({
-    assistant_id: assistantId
-  }, function(err, result) {
-    if (err) {
-      console.error(err); // something went wrong
-      return;
-    }
-    sessionId = result.session_id;
-    sendMessage(); // start conversation with empty message
-  });
+  var sessionId = req.body.sessionId;
+  var messageText = req.body.message;
+  console.log(req.body);
+  if(sessionId == ''){
+    service.createSession({
+      assistant_id: assistantId
+    }, function(err, result) {
+      if (err) {
+        console.error(err); // something went wrong
+        return;
+      }
+      sessionId = result.session_id;
+      sendMessage(messageText); // start conversation with empty message
+    });
+  } else {
+    sendMessage(messageText);
+  }
+  
 
   // Send message to assistant.
   function sendMessage(messageText) {
-    var messageText = req.body.message;
     service.message({
       assistant_id: assistantId,
       session_id: sessionId,
@@ -63,6 +70,7 @@ app.post('/conversation/', function(req, res){
 
     // Display the output from assistant, if any. Assumes a single text response.
     if (response.output.generic.length != 0) {
+      response.output.generic[0].sessionId = sessionId;
       res.json(response.output.generic[0]);
       console.log(response.output.generic[0].text);
     }
