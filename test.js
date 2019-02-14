@@ -1,6 +1,6 @@
 var request = require('xhr-request')
  
-request('https://b9eae2fb-e9e9-475c-8561-0549f39e21a3:aE7Uql75X7@twcservice.mybluemix.net:443/api/weather/v1/geocode/-23.68/-46.87/observations.json', {
+request('https://b9eae2fb-e9e9-475c-8561-0549f39e21a3:aE7Uql75X7@twcservice.mybluemix.net:443/api/weather/v1/geocode/40.69/-74.25/observations.json', {
   method: 'GET',
   json: true,
   qs: {

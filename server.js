@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var AssistantV2 = require('watson-developer-cloud/assistant/v2')
+var AssistantV2 = require('watson-developer-cloud/assistant/v2');
+var request = require('xhr-request');
 
 var app = express();
 app.use(bodyParser.json());
@@ -67,7 +68,27 @@ app.post('/conversation/', function(req, res){
     if (response.output.intents.length > 0) {
       console.log('Detected intent: #' + response.output.intents[0].intent);
     }
-
+    if(response.output.actions){
+      if(response.output.actions[0].name === 'show_weather'){
+        request('https://b9eae2fb-e9e9-475c-8561-0549f39e21a3:aE7Uql75X7@twcservice.mybluemix.net:443/api/weather/v1/geocode/40.69/-74.25/observations.json', {
+          method: 'GET',
+          json: true,
+          qs: {
+            units: "m",
+            language: "pt-br"  
+          }
+        }, function (err, data) {
+          if (err) {
+            console.error(err); // something went wrong
+            return;
+          }
+          var weather = {
+            text: "Current temperature in NY is: " + data.observation.temp + " Fahrenheit"
+          }
+          res.json(weather);
+        })
+      }
+    }
     // Display the output from assistant, if any. Assumes a single text response.
     if (response.output.generic.length != 0) {
       response.output.generic[0].sessionId = sessionId;
