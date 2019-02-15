@@ -12,16 +12,20 @@ module.exports.start = function(application, req, res){
     var sessionId = req.body.sessionId;
     var messageText = req.body.message;
     console.log(req.body);
-    service.createSession({
-        assistant_id: assistantId
-        }, function(err, result) {
-        if (err) {
-            console.error(err); // something went wrong
-            return;
-        }
-        sessionId = result.session_id;
-        sendMessage(messageText); // start conversation with empty message
-    });
+    if(sessionId == ''){
+      service.createSession({
+          assistant_id: assistantId
+          }, function(err, result) {
+          if (err) {
+              console.error(err); // something went wrong
+              return;
+          }
+          sessionId = result.session_id;
+          sendMessage(messageText); // start conversation with empty message
+      });
+    } else {
+        sendMessage(messageText);
+    }
     // Send message to assistant.
     function sendMessage(messageText) {
         service.message({
