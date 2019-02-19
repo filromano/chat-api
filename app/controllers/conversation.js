@@ -15,7 +15,6 @@ module.exports.start = function(application, req, res){
     var assistantId = assistant[chatbotResource].assistantId; // replace with assistant ID
     var sessionId;
 
-    console.log(req.body);
     if(sessionId == ''){
       service.createSession({
           assistant_id: assistantId
