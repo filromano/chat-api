@@ -2,10 +2,11 @@ module.exports.start = function(application, req, res){
     var AssistantV2 = require('watson-developer-cloud/assistant/v2');
     var assistant = require('../data/assistant.json');
 
-    var chatbotResource = req.body.chatbotType;
-    var sessionId = req.body.sessionId;
-    var messageText = req.body.message;
-    
+    var info = req.body.info;
+    var chatbotResource = info.chatbotType;
+    var sessionId = info.sessionId;
+    var messageText = info.message;
+    console.log(info)
     var service = new AssistantV2({
       iam_apikey: assistant[chatbotResource].iam_apikey, // replace with API key
       version: assistant[chatbotResource].version
