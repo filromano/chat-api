@@ -1,12 +1,13 @@
 module.exports.start = function(application, req, res){
     var AssistantV2 = require('watson-developer-cloud/assistant/v2');
-
+    var assistant = require('../data/assistant.json');
+    
     var service = new AssistantV2({
-      iam_apikey: '3rmJmrRIzCopV4eE0hvGcaMGjHLatuk9CJ-Pnfnq99LT', // replace with API key
-      version: '2018-09-20'
+      iam_apikey: assistant.store.iam_apikey, // replace with API key
+      version: assistant.store.version
     });
     
-    var assistantId = '6ab05819-8344-4947-b05b-3ba4ec93c6e5'; // replace with assistant ID
+    var assistantId = assistant.store.assistantId; // replace with assistant ID
     var sessionId;
 
     var sessionId = req.body.sessionId;

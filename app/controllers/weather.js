@@ -1,7 +1,8 @@
 module.exports.check = function(application, req, res){
     var request = require('xhr-request');
+    var weatherJson = require('../data/weather.json');
     
-    request('https://b9eae2fb-e9e9-475c-8561-0549f39e21a3:aE7Uql75X7@twcservice.mybluemix.net:443/api/weather/v1/geocode/40.69/-74.25/observations.json', {
+    request('https://' + weatherJson.store.username + ':' + weatherJson.store.password + '@twcservice.mybluemix.net:443/api/weather/v1/geocode/40.69/-74.25/observations.json', {
         method: 'GET',
         json: true,
         qs: {
