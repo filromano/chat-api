@@ -1,8 +1,9 @@
 module.exports.check = function(application, req, res){
     var request = require('xhr-request');
     var weatherJson = require('../data/weather.json');
+    var chatbotResource = req.body.chatbotType;
     
-    request('https://' + weatherJson.store.username + ':' + weatherJson.store.password + '@twcservice.mybluemix.net:443/api/weather/v1/geocode/40.69/-74.25/observations.json', {
+    request('https://' + weatherJson[chatbotResource].username + ':' + weatherJson[chatbotResource].password + '@twcservice.mybluemix.net:443/api/weather/v1/geocode/40.69/-74.25/observations.json', {
         method: 'GET',
         json: true,
         qs: {
