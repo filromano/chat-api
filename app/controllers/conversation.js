@@ -54,6 +54,11 @@ module.exports.start = function(application, req, res){
         if(response.output.actions){
           if(response.output.actions[0].name === 'show_weather'){
             application.app.controllers.weather.check(application, req, res);
+          } else if (response.output.actions[0].name === 'display_time'){
+            var time = {
+              text: 'The current time is ' + new Date().toLocaleTimeString() + '.'
+            }
+            res.json(time);
           }
         }
         // Display the output from assistant, if any. Assumes a single text response.
