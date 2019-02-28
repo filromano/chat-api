@@ -10,7 +10,7 @@ class Chat{
         let chat = this;
         chat.service.createSession({
             assistant_id: chat.assistantId
-            }, function(err, result) {
+            }, (err, result) => {
             if (err) {
                 console.error(err); // something went wrong
                 return;
@@ -29,10 +29,7 @@ class Chat{
             message_type: 'text',
             text: chat.messageText
             }
-        }, processResponse);
-
-        // Process the response.
-        function processResponse(err, response) {
+        }, (err, response) => {
             if (err) {
             console.error(err); // something went wrong
             return;
@@ -58,7 +55,7 @@ class Chat{
             res.json(response.output.generic[0]);
             console.log(response.output.generic[0].text);
             }
-        }
+        });
     }
 }
     
