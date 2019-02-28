@@ -1,4 +1,4 @@
-module.exports.check = function(application, req, res){
+module.exports.check = (application, req, res) => {
     const request = require('xhr-request');
     const weatherJson = require('../data/weather.json');
     const chatbotResource = req.body.info.chatbotType; // which weather we should look for in the json
@@ -10,7 +10,7 @@ module.exports.check = function(application, req, res){
             units: "m",
             language: "pt-br"  
             }
-        }, function (err, data) {
+        }, (err, data) => {
             if (err) {
                 console.error(err); // something went wrong
                 return;

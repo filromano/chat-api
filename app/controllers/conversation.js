@@ -1,4 +1,4 @@
-module.exports.start = function(application, req, res){
+module.exports.start = (application, req, res) => {
     const AssistantV2 = require('watson-developer-cloud/assistant/v2');
     const assistant = require('../data/assistant.json');
 
