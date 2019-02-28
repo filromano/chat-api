@@ -1,8 +1,8 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var consign = require('consign');
+const bodyParser = require('body-parser');
+const consign = require('consign');
 
-var app = express();
+const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(function(req, res, next){

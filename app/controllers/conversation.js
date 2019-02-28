@@ -1,19 +1,18 @@
 module.exports.start = function(application, req, res){
-    var AssistantV2 = require('watson-developer-cloud/assistant/v2');
-    var assistant = require('../data/assistant.json');
+    const AssistantV2 = require('watson-developer-cloud/assistant/v2');
+    const assistant = require('../data/assistant.json');
 
-    var info = req.body.info; // obj from vue
-    var chatbotResource = info.chatbotType; //which chatbot to choose in the json
-    var sessionId = info.sessionId;
-    var messageText = info.message;
+    const info = req.body.info; // obj from vue
+    const chatbotResource = info.chatbotType; //which chatbot to choose in the json
+    let sessionId = info.sessionId;
+    const messageText = info.message;
     console.log(info)
-    var service = new AssistantV2({
+    const service = new AssistantV2({
       iam_apikey: assistant[chatbotResource].iam_apikey, // replace with API key
       version: assistant[chatbotResource].version
     });
     
-    var assistantId = assistant[chatbotResource].assistantId; // replace with assistant ID
-    var sessionId;
+    const assistantId = assistant[chatbotResource].assistantId; // replace with assistant ID
 
     if(sessionId == ''){
       service.createSession({
