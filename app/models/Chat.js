@@ -7,8 +7,8 @@ function Chat(sessionId, service, assistantId, messageText) {
 
 Chat.prototype.createSession = function(application, req, res){
     let chat = this;
-    this.service.createSession({
-        assistant_id: this.assistantId
+    chat.service.createSession({
+        assistant_id: chat.assistantId
         }, function(err, result) {
         if (err) {
             console.error(err); // something went wrong
@@ -22,13 +22,13 @@ Chat.prototype.createSession = function(application, req, res){
 
 Chat.prototype.sendMessage = function(application, req, res){
     let chat = this;
-    console.log(this.sessionId);
-    this.service.message({
-        assistant_id: this.assistantId,
-        session_id: this.sessionId,
+    console.log(chat.sessionId);
+    chat.service.message({
+        assistant_id: chat.assistantId,
+        session_id: chat.sessionId,
         input: {
         message_type: 'text',
-        text: this.messageText
+        text: chat.messageText
         }
     }, processResponse);
     // Process the response.
