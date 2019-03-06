@@ -17,7 +17,6 @@ app.use(function(req, res, next){
 consign()
   .include('app/routes')
   .then('app/controllers')
-  .then('app/models')
   .into(app);
 
 
