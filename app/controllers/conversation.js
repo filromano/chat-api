@@ -3,7 +3,6 @@ function start(req, res) {
       const AssistantV2 = require('watson-developer-cloud/assistant/v2');
       const assistant = require('../data/assistant.json');
       const chat = require('../models/Chat');
-      console.log(req.body);
       const info = req.body.info; // obj from vue
       const chatbotResource = info.chatbotType; //which chatbot to choose in the json
       let sessionId = info.sessionId;
@@ -32,7 +31,7 @@ function start(req, res) {
             } else {
               res.json(send)
             }
-          });;
+          });
       }
     });
 }

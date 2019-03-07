@@ -1,6 +1,10 @@
-module.exports = function(application){
-  const conversation = require('../controllers/conversation');
-  application.post('/conversation/', function(req, res){
-   conversation.start(req, res);
-  });
-}
+const conversation = require('../controllers/conversation');
+const express = require('express');
+const router = express.Router();
+
+router.post('/', function(req, res){
+  console.log('aqui');
+  conversation.start(req, res);
+});
+
+module.exports = router;
