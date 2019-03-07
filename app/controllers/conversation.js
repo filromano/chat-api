@@ -1,4 +1,4 @@
-function start(application, req, res) {
+function start(req, res) {
     new Promise((resolve, reject) => {
       const AssistantV2 = require('watson-developer-cloud/assistant/v2');
       const assistant = require('../data/assistant.json');
@@ -15,16 +15,24 @@ function start(application, req, res) {
       const assistantId = assistant[chatbotResource].assistantId; // replace with assistant ID
 
       const Chat = new chat(service, assistantId, messageText);
-
+      const weather = require('../controllers/weather');
       if(sessionId == ''){
         Chat.createSession()
           .then(sessionId => Chat.sendMessage(sessionId))
-          .then(answer => Chat.responseHandler(application, req, res, answer))
+          .then(answer => Chat.responseHandler(answer))
           .then(send => res.json(send));
       } else {
         Chat.sendMessage(sessionId)
-          .then(answer => Chat.responseHandler(application, req, res, answer))
-          .then(send => res.json(send));;
+          .then(answer => Chat.responseHandler(answer))
+          .then(send => {
+            if(send.action){
+              if(send.action == 'show_weather'){
+                weather.check(chatbotResource, res)
+              }
+            } else {
+              res.json(send)
+            }
+          });;
       }
     });
 }

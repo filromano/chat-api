@@ -47,25 +47,26 @@ class Chat{
         
     }
 
-    responseHandler(application, req, res, answer){
+    responseHandler(answer){
         if (answer.response.output.intents.length > 0) {
             console.log('Detected intent: #' + answer.response.output.intents[0].intent);
         }
+
         return new Promise((resolve, reject) => {
             let send;
             if(answer.response.output.actions){
                 if(answer.response.output.actions[0].name === 'show_weather'){
-                    //application.app.controllers.weather.check(application, req, res);
+                    send = {
+                        action: 'show_weather'
+                    }
                 } else if (answer.response.output.actions[0].name === 'display_time'){
                     send = {
                         text: 'The current time is ' + new Date().toLocaleTimeString() + '.',
                         sessionId: answer.sessionId
                     }
                 }
-            }
-            // Display the output from assistant, if any. Assumes a single text response.
-            if (answer.response.output.generic.length != 0) {
-                send ={
+            } else if (answer.response.output.generic.length != 0) {
+                send = {
                     text: answer.response.output.generic[0].text,
                     sessionId: answer.sessionId
                 };
