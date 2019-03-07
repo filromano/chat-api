@@ -48,26 +48,31 @@ class Chat{
     }
 
     responseHandler(application, req, res, answer){
-        // If an intent was detected, log it out to the console.
         if (answer.response.output.intents.length > 0) {
             console.log('Detected intent: #' + answer.response.output.intents[0].intent);
         }
-        if(answer.response.output.actions){
-            if(answer.response.output.actions[0].name === 'show_weather'){
-                application.app.controllers.weather.check(application, req, res);
-            } else if (answer.response.output.actions[0].name === 'display_time'){
-                var time = {
-                text: 'The current time is ' + new Date().toLocaleTimeString() + '.'
+        return new Promise((resolve, reject) => {
+            let send;
+            if(answer.response.output.actions){
+                if(answer.response.output.actions[0].name === 'show_weather'){
+                    //application.app.controllers.weather.check(application, req, res);
+                } else if (answer.response.output.actions[0].name === 'display_time'){
+                    send = {
+                        text: 'The current time is ' + new Date().toLocaleTimeString() + '.',
+                        sessionId: answer.sessionId
+                    }
                 }
-                res.json(time);
             }
-        }
-        // Display the output from assistant, if any. Assumes a single text response.
-        if (answer.response.output.generic.length != 0) {
-            answer.response.output.generic[0].sessionId = answer.sessionId;
-            res.json(answer.response.output.generic[0]);
-            console.log(answer.response.output.generic[0].text);
-        }
+            // Display the output from assistant, if any. Assumes a single text response.
+            if (answer.response.output.generic.length != 0) {
+                send ={
+                    text: answer.response.output.generic[0].text,
+                    sessionId: answer.sessionId
+                };
+                //console.log(answer.response.output.generic[0].text);
+            }
+            resolve(send);
+        });
     }
 }
     

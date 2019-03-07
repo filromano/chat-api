@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
 const consign = require('consign');
 
@@ -16,7 +16,6 @@ app.use(function(req, res, next){
 
 consign()
   .include('app/routes')
-  .then('app/controllers')
   .into(app);
 
 
