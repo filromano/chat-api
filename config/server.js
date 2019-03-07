@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const consign = require('consign');
 const conversation = require('../app/routes/conversation');
 
 const app = express();
