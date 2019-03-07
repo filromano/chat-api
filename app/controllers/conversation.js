@@ -1,11 +1,12 @@
 function start(req, res) {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const AssistantV2 = require('watson-developer-cloud/assistant/v2');
       const assistant = require('../data/assistant.json');
       const chat = require('../models/Chat');
+      const weather = require('../controllers/weather');
+
       const info = req.body.info; // obj from vue
       const chatbotResource = info.chatbotType; //which chatbot to choose in the json
-      let sessionId = info.sessionId;
       const messageText = info.message;
       const service = new AssistantV2({
         iam_apikey: assistant[chatbotResource].iam_apikey, // replace with API key
@@ -13,13 +14,15 @@ function start(req, res) {
       });
       const assistantId = assistant[chatbotResource].assistantId; // replace with assistant ID
 
+      let sessionId = info.sessionId;
+
       const Chat = new chat(service, assistantId, messageText);
-      const weather = require('../controllers/weather');
+
       if(sessionId == ''){
         Chat.createSession()
           .then(sessionId => Chat.sendMessage(sessionId))
           .then(answer => Chat.responseHandler(answer))
-          .then(send => res.json(send));
+          .then(send => resolve(send));
       } else {
         Chat.sendMessage(sessionId)
           .then(answer => Chat.responseHandler(answer))
@@ -29,7 +32,7 @@ function start(req, res) {
                 weather.check(chatbotResource, res)
               }
             } else {
-              res.json(send)
+              resolve(send)
             }
           });
       }

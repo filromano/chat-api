@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', function(req, res){
-  console.log('aqui');
-  conversation.start(req, res);
+  conversation.start(req, res).then(send => res.json(send));
 });
 
 module.exports = router;
