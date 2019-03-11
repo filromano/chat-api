@@ -18,24 +18,23 @@ function start(req, res) {
 
       const Chat = new chat(service, assistantId, messageText);
 
-      if(sessionId == ''){
-        Chat.createSession()
-          .then(sessionId => Chat.sendMessage(sessionId))
-          .then(answer => Chat.responseHandler(answer))
-          .then(send => resolve(send));
-      } else {
-        Chat.sendMessage(sessionId)
-          .then(answer => Chat.responseHandler(answer))
-          .then(send => {
-            if(send.action){
-              if(send.action == 'show_weather'){
-                weather.check(chatbotResource, res)
-              }
-            } else {
-              resolve(send)
-            }
-          });
+      //Async function (working with promises)
+
+      async function chating(sessionId){
+        if(sessionId == ''){
+          sessionId = sessionId = await Chat.createSession();
+        }
+        const answer = await Chat.sendMessage(sessionId);
+        const send = await Chat.responseHandler(answer);
+        if(send.action){
+          if(send.action == 'show_weather'){
+            weather.check(chatbotResource, res)
+          }
+        } else {
+          resolve(send)
+        }
       }
+      chating(sessionId);
     });
 }
 
