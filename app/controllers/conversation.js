@@ -22,7 +22,7 @@ function start(req, res) {
 
       async function chating(sessionId){
         if(sessionId == ''){
-          sessionId = sessionId = await Chat.createSession();
+          sessionId = await Chat.createSession();
         }
         const answer = await Chat.sendMessage(sessionId);
         const send = await Chat.responseHandler(answer);
