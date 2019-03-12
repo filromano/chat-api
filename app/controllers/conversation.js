@@ -2,7 +2,7 @@ function start(req, res) {
     return new Promise((resolve, reject) => {
       const AssistantV2 = require('watson-developer-cloud/assistant/v2');
       const assistant = require('../data/assistant.json');
-      const chat = require('../models/Chat');
+      const Chat = require('../models/Chat');
       const weather = require('../controllers/weather');
 
       const info = req.body.info; // obj from vue
@@ -16,16 +16,16 @@ function start(req, res) {
 
       let sessionId = info.sessionId;
 
-      const Chat = new chat(service, assistantId, messageText);
+      const Conversation = new Chat(service, assistantId, messageText);
 
       //Async function (working with promises)
 
       async function chating(sessionId){
         if(sessionId == ''){
-          sessionId = await Chat.createSession();
+          sessionId = await Conversation.createSession();
         }
-        const answer = await Chat.sendMessage(sessionId);
-        const send = await Chat.responseHandler(answer);
+        const answer = await Conversation.sendMessage(sessionId);
+        const send = await Conversation.responseHandler(answer);
         if(send.action){
           if(send.action == 'show_weather'){
             weather.check(chatbotResource, res)
