@@ -14,6 +14,7 @@ router.post('/', (req, res) => {
     })
     .catch(err => {
         console.error(err);
+        res.json({error: true, msg: 'Internal server error!'});
     })
 });
 
