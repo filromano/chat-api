@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const conversation = require('../app/routes/conversation');
+const login = require('../app/routes/login');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,6 +15,7 @@ app.use(function(req, res, next){
   next();
 });
 app.use('/conversation/', conversation);
+app.use('/login', login);
 
 
 module.exports = app;
