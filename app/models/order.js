@@ -8,7 +8,7 @@ async function placeOrder(info){
         quantity: info.quantity
     })
     .then(response => {
-        return response.data;
+        return response.data.id;
     })
     .catch(error => { 
         console.error(error);
