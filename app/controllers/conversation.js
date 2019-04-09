@@ -17,18 +17,22 @@ function start(req, res) {
       let sessionId = info.sessionId;
 
       const Conversation = new Chat(service, assistantId, messageText);
+      const order = require('../models/order.js');
 
       //Async function (working with promises)
 
       async function chating(sessionId){
-        if(sessionId == ''){
+        if(sessionId === ''){
           sessionId = await Conversation.createSession();
         }
         const answer = await Conversation.sendMessage(sessionId);
         const send = await Conversation.responseHandler(answer);
         if(send.action){
-          if(send.action == 'show_weather'){
+          if(send.action === 'show_weather'){
             weather.check(chatbotResource, res)
+          } else if(send.action === 'order'){
+            await order.placeOrder(send.info);
+            resolve(send);
           }
         } else {
           resolve(send)

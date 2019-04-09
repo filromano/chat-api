@@ -55,13 +55,27 @@ class Chat{
         return new Promise((resolve, reject) => {
             let send;
             if(answer.response.output.actions){
-                if(answer.response.output.actions[0].name === 'show_weather'){
+                const actions = answer.response.output.actions;
+                console.log(actions[0]);
+                if(actions[0].name === 'show_weather'){
                     send = {
                         action: 'show_weather'
                     }
-                } else if (answer.response.output.actions[0].name === 'display_time'){
+                } else if (actions[0].name === 'display_time'){
                     send = {
                         text: 'The current time is ' + new Date().toLocaleTimeString() + '.',
+                        sessionId: answer.sessionId
+                    }
+                } else if (actions[0].name === 'order'){
+                    send = {
+                        action: "order",
+                        info: {
+                            date: actions[0].parameters.date,
+                            number: actions[0].parameters.number,
+                            location: actions[0].parameters.location,
+                            quantity: actions[0].parameters.quantity,
+                        },
+                        text: answer.response.output.generic[0].text,
                         sessionId: answer.sessionId
                     }
                 }
