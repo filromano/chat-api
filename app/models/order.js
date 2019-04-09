@@ -1,20 +1,20 @@
 const axios = require('axios');
 
 async function placeOrder(info){
-    axios.post('http://localhost:1337/orders', {
+    const data = axios.post('http://localhost:1337/orders', {
         date: info.date,
         number: info.number,
         location: info.location,
         quantity: info.quantity
     })
     .then(response => {
-        console.log(response.data);
-        return
+        return response.data;
     })
     .catch(error => { 
         console.error(error);
         return
     });
+    return data;
 }
 
 module.exports = {
