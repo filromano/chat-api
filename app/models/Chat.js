@@ -47,48 +47,46 @@ class Chat{
         
     }
 
-    responseHandler(answer){
+    async responseHandler(answer){
         if (answer.response.output.intents.length > 0) {
             console.log('Detected intent: #' + answer.response.output.intents[0].intent);
         }
 
-        return new Promise((resolve, reject) => {
-            let send;
-            if(answer.response.output.actions){
-                const actions = answer.response.output.actions;
-                console.log(actions[0]);
-                if(actions[0].name === 'show_weather'){
-                    send = {
-                        action: 'show_weather'
-                    }
-                } else if (actions[0].name === 'display_time'){
-                    send = {
-                        text: 'The current time is ' + new Date().toLocaleTimeString() + '.',
-                        sessionId: answer.sessionId
-                    }
-                } else if (actions[0].name === 'order'){
-                    send = {
-                        action: "order",
-                        info: {
-                            date: actions[0].parameters.date,
-                            number: actions[0].parameters.number,
-                            location: actions[0].parameters.location,
-                            quantity: actions[0].parameters.quantity,
-                        },
-                        text: answer.response.output.generic[0].text,
-                        sessionId: answer.sessionId
-                    }
-                }
-            } else if (answer.response.output.generic.length != 0) {
+        let send;
+        if(answer.response.output.actions){
+            const actions = answer.response.output.actions;
+            console.log(actions[0]);
+            if(actions[0].name === 'show_weather'){
                 send = {
+                    action: 'show_weather'
+                }
+            } else if (actions[0].name === 'display_time'){
+                send = {
+                    text: 'The current time is ' + new Date().toLocaleTimeString() + '.',
+                    sessionId: answer.sessionId
+                }
+            } else if (actions[0].name === 'order'){
+                send = {
+                    action: "order",
+                    info: {
+                        date: actions[0].parameters.date,
+                        number: actions[0].parameters.number,
+                        location: actions[0].parameters.location,
+                        quantity: actions[0].parameters.quantity,
+                    },
                     text: answer.response.output.generic[0].text,
                     sessionId: answer.sessionId
-                };
-                //console.log(answer.response.output.generic[0].text);
+                }
             }
-            resolve(send);
-        });
-    }
+        } else if (answer.response.output.generic.length != 0) {
+            send = {
+                text: answer.response.output.generic[0].text,
+                sessionId: answer.sessionId
+            };
+            //console.log(answer.response.output.generic[0].text);
+        }
+        return send;
+}
 }
     
 
