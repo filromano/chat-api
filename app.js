@@ -1,6 +1,20 @@
-var app = require('./config/server');
-var port= 3000;
+const settings = require('./data/settings');
+const https = require('https');
+const fs = require('fs');
+const app = require('./startup/server');
 
-app.listen(port, function(){
-    console.log('Server online on port: ' + port);
+const serverPort = settings.server.port;
+const httpsOtions = {
+    key: fs.readFileSync(settings.ssl.keyLocation),
+    cert: fs.readFileSync(settings.ssl.certLocation),
+    passphrase: settings.ssl.passphrase,
+    requestCert: false,
+    rejectUnauthorized: false
+};
+
+var server = https.createServer(httpsOtions, app).listen(serverPort, () => {
+    const host = server.address().address;
+    const port = server.address().port;
+    let msg = 'Listening at http://'+host+':'+port+" on "+settings.env+" mode";
+    console.log(msg);
 });
