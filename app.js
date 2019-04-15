@@ -1,4 +1,4 @@
-const settings = require('./data/settings');
+const settings = require('./app/data/settings');
 const https = require('https');
 const fs = require('fs');
 const app = require('./startup/server');

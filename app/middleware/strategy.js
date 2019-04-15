@@ -1,4 +1,4 @@
-const settings = require('../../data/settings');
+const settings = require('../data/settings');
 const OpenIDConnectStrategy = require('passport-idaas-openidconnect')
                                                             .IDaaSOIDCStrategy;
 

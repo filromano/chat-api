@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const passport = require('passport');
 const session = require('express-session');
-const settings = require('../data/settings');
+const settings = require('../app/data/settings');
 const Strategy = require('../app/middleware/strategy');
 
 if (!config.get('jwtPrivateKey')) {
