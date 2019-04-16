@@ -24,17 +24,15 @@ async function start(req, res) {
         sessionId = await Conversation.createSession();
     }
     const answer = await Conversation.sendMessage(sessionId);
-    const send = await Conversation.responseHandler(answer);
+    let send = await Conversation.responseHandler(answer);
     if(send.action){
         if(send.action === 'show_weather'){
-            weather.check(chatbotResource, res)
+           send = await weather.check(chatbotResource, res);
         } else if(send.action === 'order'){
             send.data = await order.placeOrder(send.info);
-            return send;
         }
-    } else {
-        return send;
     }
+    return send;
 }
 
 module.exports = {
