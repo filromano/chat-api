@@ -1,5 +1,5 @@
 {
-    "apiCallback": "",
+    "apiCallback": "https://chatbot-api-filiperr.w3ibm.mybluemix.net/login/answer",
     "front": "",
     "db": ""
 }
