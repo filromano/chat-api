@@ -1,3 +1,4 @@
+const config = require('config');
 const cliId = 'NDQ2MjVhOTUtY2UyYS00';
 const cliSecret = 'NzFlOGE2NGYtOWI5MC00';
 const settings = {
@@ -11,7 +12,7 @@ const settings = {
         authorizationUrl: "https://w3id.alpha.sso.ibm.com/isam/oidc/endpoint/amapp-runtime-oidcidp/authorize",
         tokenUrl: "https://w3id.alpha.sso.ibm.com/isam/oidc/endpoint/amapp-runtime-oidcidp/token",
         issuerId: "https://w3id.alpha.sso.ibm.com/isam",
-        callbackUrl: "https://localhost:9995/login/answer",
+        callbackUrl: config.get("apiCallback"),
         jwtCertificate: ["/certificates/oidc_w3id_staging.cer"]
     },
     server:{

@@ -10,14 +10,14 @@ router.get('/', ensureAuthenticated, function(req, res) {
     
     var claims = req.user['_json'];
     console.log(claims);
-    axios.post('http://localhost:1337/connecteds', {
+    axios.post(config.get('db') + '/connecteds', {
         name: claims.firstName,
         email: claims.emailAddress
     })
     .then(response => {
         console.log(response);
         const token = jwt.sign({ _id: response.data._id}, config.get('jwtPrivateKey'));
-        res.redirect('http://localhost:8080/?token=' + token);
+        res.redirect(config.get('front') + '/?token=' + token);
         //res.send('<h2>Hello' + claims.firstName + claims.familyName + '<br/>Welcome to IBMid Demo router</h2><br/>Your token is:' + token);
     })
     .catch(err => { console.error(err) })

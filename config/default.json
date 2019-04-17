@@ -1,3 +1,6 @@
 {
-    "jwtPrivateKey": ""
+    "jwtPrivateKey": "",
+    "apiCallback": "https://localhost:9995/login/answer",
+    "front": "http://localhost:8080",
+    "db": "http://localhost:1337"
 }

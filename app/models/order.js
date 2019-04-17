@@ -1,7 +1,8 @@
 const axios = require('axios');
+const config = require('config');
 
 async function placeOrder(info){
-    const data = axios.post('http://localhost:1337/orders', {
+    const data = axios.post(config.get('db') + '/orders', {
         date: info.date,
         number: info.number,
         location: info.location,
