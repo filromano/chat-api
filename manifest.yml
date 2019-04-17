@@ -1,6 +1,6 @@
 applications: 
 - memory: 128M
-  name: chatbot-api-filiperr
+  name: chat-api-filiperr
   command: npm start
   disk_quota: 256M
   buildpack: sdk-for-nodejs
