@@ -8,4 +8,8 @@ router.post('/', auth, async (req, res) => {
   res.json(send);
 });
 
+router.get('/test', (req, res) => {
+  res.send('Chegou');
+});
+
 module.exports = router;
