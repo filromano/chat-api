@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const conversation = require('../app/routes/conversation');
 const user = require('../app/routes/user');
 const login = require('../app/routes/login');
+const order = require('../app/routes/order');
 
 const config = require('config');
 const cookieParser = require('cookie-parser');
@@ -55,6 +56,7 @@ app.use(function(req, res, next){
 app.use('/conversation', conversation);
 app.use('/user', user);
 app.use('/login', login);
+app.use('/order', order);
 
 require('./db')();
 

@@ -16,7 +16,7 @@ async function start(req, res) {
     let sessionId = info.sessionId;
 
     const Conversation = new Chat(service, assistantId, messageText);
-    const order = require('../models/order.js');
+    const { placeOrder } = require('../models/order.js');
 
     //Async function (working with promises)
 
@@ -29,7 +29,7 @@ async function start(req, res) {
         if(send.action === 'show_weather'){
            send = await weather.check(chatbotResource, res);
         } else if(send.action === 'order'){
-            send.data = await order.placeOrder(send.info);
+            send.data = await placeOrder(send.info);
         }
     }
     return send;
