@@ -1,3 +1,5 @@
 {
-    "jwtPrivateKey": "chatlogin_jwtPrivateKey"
+    "jwtPrivateKey": "chatlogin_jwtPrivateKey",
+    "dbuser": "chatlogin_dbuser",
+    "dbpassword": "chatlogin_dbpassword"
 }

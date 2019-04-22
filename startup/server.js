@@ -56,6 +56,8 @@ app.use('/conversation', conversation);
 app.use('/user', user);
 app.use('/login', login);
 
+require('./db')();
+
 
 ////////////////////////////////////////////////////////////////////////////////
 

@@ -22,6 +22,7 @@
     "express-session": "^1.16.1",
     "helmet": "^3.16.0",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.2",
     "passport": "^0.4.0",
     "passport-idaas-openidconnect": "^2.0.2",
     "querystring": "^0.2.0",

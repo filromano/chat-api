@@ -1,5 +1,5 @@
 {
     "apiCallback": "https://chat-api-filiperr-testing.mybluemix.net/login/answer",
-    "front": "",
-    "db": ""
+    "front": "https://chat-front-vue-filiperr.mybluemix.net",
+    "db": "cluster0-7hpf7.gcp.mongodb.net/test"
 }
